@@ -55,8 +55,8 @@ function App() {
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "AM BASAN E.I.R.L.",
-          "url": "https://ambasan.pe",
-          "logo": "https://ambasan.pe/assets/logo.png",
+          "url": "https://ambasan.com",
+          "logo": "https://ambasan.com/assets/logo.png",
           "description": "AM BASAN E.I.R.L. (RUC 20607825981) — Importación y venta de videolaringoscopios y equipos para anestesiología en Perú.",
           "contactPoint": [
             {

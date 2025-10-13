@@ -78,10 +78,10 @@ export default function Videolaringoscopio({ onOpenQuote }: VideolaringoscopioPr
   return (
     <>
       <SEO
-        title="Videolaringoscopio CoreRay CR31 en Perú | AM BASAN"
-        description="Especificaciones técnicas del Videolaringoscopio CoreRay CR31. Imagen HD, diseño ergonómico y hojas reusables. Ideal para manejo de vía aérea difícil. Cotizaciones en todo Perú."
-        keywords="videolaringoscopio CoreRay CR31, videolaringoscopio peru, manejo via aérea difícil, especificaciones tecnicas videolaringoscopio, equipos medicos peru"
-        canonical="https://ambasan.pe/videolaringoscopio"
+        title="Videolaringoscopio CoreRay CR31 | AM BASAN — Especificaciones Técnicas"
+        description="Videolaringoscopio CoreRay CR31 con imagen HD, diseño ergonómico y conectividad. Ideal para manejo de vía aérea difícil. Cotizaciones y especificaciones técnicas completas."
+        keywords="videolaringoscopio CoreRay CR31, videolaringoscopio HD, manejo via aérea difícil, especificaciones técnicas videolaringoscopio, videolaringoscopio peru"
+        canonical="https://ambasan.com/videolaringoscopio"
       />
 
       <div className="pt-20">

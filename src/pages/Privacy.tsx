@@ -6,7 +6,7 @@ export default function Privacy() {
       <SEO
         title="Política de Privacidad | AM BASAN E.I.R.L."
         description="Política de privacidad de AM BASAN E.I.R.L. Información sobre el tratamiento de datos personales y protección de la información."
-        canonical="https://ambasan.pe/privacy"
+        canonical="https://ambasan.com/privacy"
       />
 
       <div className="pt-20">

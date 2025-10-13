@@ -107,7 +107,7 @@ export default function OtrosProductos({ onOpenQuote }: OtrosProductosProps) {
         title="Otros Productos | AM BASAN E.I.R.L. — Equipos Médicos"
         description="Catálogo de equipos médicos adicionales para anestesiología y manejo de vía aérea, incluyendo laringoscopios, resucitadores, máscaras laríngeas y más."
         keywords="equipos médicos perú, laringoscopio convencional, resucitador manual, máscara laríngea, pinzas magill"
-        canonical="https://ambasan.pe/otros-productos"
+        canonical="https://ambasan.com/otros-productos"
       />
 
       <div className="pt-20">

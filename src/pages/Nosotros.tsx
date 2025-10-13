@@ -12,7 +12,7 @@ export default function Nosotros({ onOpenQuote }: NosotrosProps) {
         title="Nosotros | AM BASAN E.I.R.L. — Especialistas en Equipos Médicos"
         description="AM BASAN E.I.R.L. es una empresa peruana dedicada a la importación y venta de equipos médicos especializados en anestesiología y manejo de vía aérea difícil."
         keywords="AM BASAN, equipos médicos peru, empresa equipos médicos, anestesiología peru"
-        canonical="https://ambasan.pe/nosotros"
+        canonical="https://ambasan.com/nosotros"
       />
 
       <div className="pt-20">

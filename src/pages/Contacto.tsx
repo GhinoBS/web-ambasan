@@ -61,7 +61,7 @@ export default function Contacto() {
         title="Contacto | AM BASAN E.I.R.L. — Cotizaciones y Consultas"
         description="Contáctenos para cotizaciones de videolaringoscopios y equipos médicos. Teléfono: +51 962 881 108. Email: ventas_ambasan@hotmail.com"
         keywords="contacto AM BASAN, cotizar videolaringoscopio, equipos médicos peru contacto"
-        canonical="https://ambasan.pe/contacto"
+        canonical="https://ambasan.com/contacto"
       />
 
       <div className="pt-20">

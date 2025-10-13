@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ambasan.pe/sitemap.xml
+Sitemap: https://ambasan.com/sitemap.xml

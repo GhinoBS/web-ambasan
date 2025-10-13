@@ -24,10 +24,10 @@ export default function Home({ onNavigate, onOpenQuote }: HomeProps) {
   return (
     <>
       <SEO
-        title="AM BASAN E.I.R.L. | Videolaringoscopios y Equipos Médicos en Perú"
-        description="AM BASAN E.I.R.L. — Importación y venta de videolaringoscopios CoreRay CR31 y soluciones para manejo de vía aérea difícil en todo el Perú. Cotizaciones y soporte a nivel nacional."
-        keywords="videolaringoscopio, videolaringoscopio peru, CoreRay CR31, manejo via aérea difícil, equipos anestesiología, am basan, equipos medicos peru"
-        canonical="https://ambasan.pe/"
+        title="Videolaringoscopio | AM BASAN E.I.R.L. — CoreRay CR31"
+        description="AM BASAN E.I.R.L. — Importación y venta de videolaringoscopios CoreRay CR31 y soluciones para manejo de vía aérea difícil. Cotizaciones: ventas_ambasan@hotmail.com"
+        keywords="videolaringoscopio, videolaringoscopio peru, CoreRay CR31, manejo via aérea difícil, equipos anestesiología"
+        canonical="https://ambasan.com/"
       />
 
       <section className="relative bg-gradient-to-br from-[#183368] via-[#183368] to-[#0293CA] text-white pt-32 pb-20 px-4">
@@ -35,10 +35,10 @@ export default function Home({ onNavigate, onOpenQuote }: HomeProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                AM BASAN — Especialistas en Videolaringoscopios y Equipos para Vía Aérea Difícil en Perú
+                AM BASAN — Especialistas en Videolaringoscopios y Equipos para Vía Aérea Difícil
               </h1>
               <p className="text-xl mb-8 text-gray-200 leading-relaxed">
-                Importación y comercialización de equipos médicos para anestesiología. Tecnología confiable, soporte técnico y entrega a nivel nacional.
+                Importación y comercialización de equipos médicos para anestesiología. Tecnología confiable, soporte técnico y entrega nacional.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
@@ -61,7 +61,7 @@ export default function Home({ onNavigate, onOpenQuote }: HomeProps) {
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <img
                   src="/assets/EMPRESA.PNG"
-                  alt="Videolaringoscopio CoreRay CR31 en Perú"
+                  alt="Videolaringoscopio CoreRay CR31"
                   className="w-full h-auto rounded-lg bg-white p-4"
                 />
               </div>
