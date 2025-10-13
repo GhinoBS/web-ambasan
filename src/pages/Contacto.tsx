@@ -1,255 +1,264 @@
-import { Target, Eye, Award, Users, Heart, Briefcase } from 'lucide-react';
+import { Mail, Phone, Clock, Send, Briefcase, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
 import SEO from '../components/SEO';
 
-interface NosotrosProps {
-  onOpenQuote: () => void;
-}
+export default function Contacto() {
+  const [formData, setFormData] = useState({
+    Nombre: '',
+    Email: '',
+    Teléfono: '',
+    Empresa: '',
+    Asunto: '',
+    Mensaje: '',
+  });
 
-export default function Nosotros({ onOpenQuote }: NosotrosProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/ventas_ambasan@hotmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: `Nuevo Mensaje de Contacto: ${formData.Asunto}`,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+            Nombre: '', Email: '', Teléfono: '', Empresa: '', Asunto: '', Mensaje: '',
+        });
+        setTimeout(() => setSubmitStatus('idle'), 4000);
+      } else {
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <SEO
-        title="Nosotros | AM BASAN E.I.R.L. — Especialistas en Equipos Médicos"
-        description="AM BASAN E.I.R.L. es una empresa peruana dedicada a la importación y venta de equipos médicos especializados en anestesiología y manejo de vía aérea difícil."
-        keywords="AM BASAN, equipos médicos peru, empresa equipos médicos, anestesiología peru"
-        canonical="https://ambasan.com/nosotros"
+        title="Contacto | AM BASAN E.I.R.L. — Cotizaciones y Consultas"
+        description="Contáctenos para cotizaciones de videolaringoscopios y equipos médicos. Teléfono: +51 962 881 108. Email: ventas_ambasan@hotmail.com"
+        keywords="contacto AM BASAN, cotizar videolaringoscopio, equipos médicos peru contacto"
+        canonical="https://ambasan.com/contacto"
       />
 
       <div className="pt-20">
         <section className="bg-gradient-to-br from-[#183368] to-[#0293CA] text-white py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <nav className="text-sm mb-6 opacity-90">
-              <span>Inicio</span> / <span className="font-semibold">Nosotros</span>
+              <span>Inicio</span> / <span className="font-semibold">Contacto</span>
             </nav>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Sobre AM BASAN E.I.R.L.
+              Contáctenos
             </h1>
             <p className="text-xl opacity-90 max-w-3xl">
-              Comprometidos con la excelencia en equipos médicos para anestesiología
+              Estamos listos para atender sus consultas y cotizaciones
             </p>
           </div>
         </section>
-
+        
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#183368] mb-6">
-                  Quiénes Somos
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+               <div>
+                <h2 className="text-3xl font-bold text-[#183368] mb-6">
+                  Información de Contacto
                 </h2>
-                <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-                  AM BASAN E.I.R.L. es una empresa peruana dedicada a la importación y venta de equipos médicos
-                  de alta precisión, especializada en anestesiología y manejo de vía aérea difícil.
+                <p className="text-gray-600 mb-8 text-lg">
+                  Puede comunicarse con nosotros a través de los siguientes canales o enviarnos un mensaje
+                  directamente usando el formulario.
                 </p>
-                <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-                  Brindamos equipos certificados, soporte técnico y asesoría especializada para personal de salud
-                  en hospitales y clínicas de todo el país.
-                </p>
-                <p className="text-gray-600 leading-relaxed text-lg">
-                  Nuestro compromiso es proveer tecnología médica de vanguardia que mejore los resultados clínicos
-                  y la seguridad de los pacientes en procedimientos críticos.
-                </p>
-                <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-500 mb-1">RUC</p>
-                  <p className="text-2xl font-bold text-[#183368]">20607825981</p>
-                </div>
-              </div>
 
-              <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-12 flex items-center justify-center">
-                <img
-                  src="/assets/logo.png"
-                  alt="AM BASAN E.I.R.L."
-                  className="w-full max-w-md h-auto bg-white p-8 rounded-xl shadow-lg"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-[#183368] to-[#0293CA] text-white rounded-2xl p-8">
-                <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Target className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Nuestra Misión</h3>
-                <p className="leading-relaxed text-lg">
-                  Proveer soluciones tecnológicas médicas de alta calidad que mejoren la seguridad y los resultados clínicos
-                  en anestesiología y manejo de vía aérea difícil, mediante equipos certificados, servicio técnico y capacitación.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-[#0293CA] to-[#03e28f] text-white rounded-2xl p-8">
-                <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Eye className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Nuestra Visión</h3>
-                <p className="leading-relaxed text-lg">
-                  Ser el referente líder en Perú como proveedor confiable de videolaringoscopios y soluciones para vía aérea,
-                  contribuyendo a la innovación y seguridad en la atención sanitaria.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#183368] mb-12 text-center">
-              Nuestros Valores
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Award className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Calidad</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Importamos únicamente equipos médicos certificados que cumplen con los más altos estándares
-                  internacionales de calidad y seguridad.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Heart className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Compromiso</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Estamos comprometidos con la salud de los pacientes y el éxito profesional de nuestros clientes
-                  mediante soporte continuo.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Servicio</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Brindamos atención personalizada, capacitación especializada y soporte técnico para garantizar
-                  el máximo aprovechamiento de nuestros equipos.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Briefcase className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Profesionalismo</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Actuamos con integridad, responsabilidad y transparencia en cada transacción y relación comercial
-                  con nuestros clientes.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Target className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Innovación</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Buscamos constantemente las últimas tecnologías médicas para ofrecer soluciones innovadoras
-                  que marquen la diferencia.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <Eye className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#183368] mb-3">Confianza</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Construimos relaciones duraderas basadas en la confianza, el cumplimiento y la satisfacción
-                  de nuestros clientes.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#183368] mb-12 text-center">
-              Por Qué Elegirnos
-            </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] rounded-full p-2 mr-4 flex-shrink-0">
-                      <Award className="h-6 w-6 text-white" />
-                    </div>
+                    <Phone className="h-6 w-6 text-[#0293CA] mr-4 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-[#183368] mb-2">Equipos Certificados</h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        Todos nuestros videolaringoscopios y equipos médicos cuentan con certificaciones CE, FDA
-                        y cumplen normas internacionales de calidad.
-                      </p>
+                      <h3 className="font-bold text-gray-800">Teléfono / WhatsApp</h3>
+                      <a href="tel:+51962881108" className="text-gray-600 hover:text-[#0293CA]">+51 962 881 108</a>
                     </div>
                   </div>
 
                   <div className="flex items-start">
-                    <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] rounded-full p-2 mr-4 flex-shrink-0">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
+                    <Mail className="h-6 w-6 text-[#0293CA] mr-4 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-[#183368] mb-2">Soporte Especializado</h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        Contamos con personal capacitado que brinda soporte técnico, mantenimiento y capacitación
-                        continua para el uso óptimo de los equipos.
-                      </p>
+                      <h3 className="font-bold text-gray-800">Correo Electrónico</h3>
+                      <a href="mailto:ventas_ambasan@hotmail.com" className="text-gray-600 hover:text-[#0293CA]">ventas_ambasan@hotmail.com</a>
                     </div>
                   </div>
 
                   <div className="flex items-start">
-                    <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] rounded-full p-2 mr-4 flex-shrink-0">
-                      <Briefcase className="h-6 w-6 text-white" />
-                    </div>
+                    <Clock className="h-6 w-6 text-[#0293CA] mr-4 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-[#183368] mb-2">Experiencia Local</h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        Entendemos las necesidades del sector salud peruano y ofrecemos soluciones adaptadas
-                        a hospitales, clínicas y centros médicos.
-                      </p>
+                      <h3 className="font-bold text-gray-800">Horario de Atención</h3>
+                      <p className="text-gray-600">Lunes a Viernes: 9:00 am - 6:00 pm</p>
                     </div>
                   </div>
-
+                  
                   <div className="flex items-start">
-                    <div className="bg-gradient-to-r from-[#0293CA] to-[#03e28f] rounded-full p-2 mr-4 flex-shrink-0">
-                      <Heart className="h-6 w-6 text-white" />
-                    </div>
+                    <Briefcase className="h-6 w-6 text-[#0293CA] mr-4 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-[#183368] mb-2">Garantía y Respaldo</h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        Ofrecemos garantía oficial en todos nuestros productos y respaldo post-venta para
-                        asegurar la continuidad operativa.
-                      </p>
+                      <h3 className="font-bold text-gray-800">RUC</h3>
+                      <p className="text-gray-600">20607825981</p>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-gradient-to-br from-[#183368] to-[#0293CA] rounded-2xl p-12 text-white">
-                <h3 className="text-2xl font-bold mb-6">¿Listo para equipar su institución?</h3>
-                <p className="text-lg mb-8 opacity-90 leading-relaxed">
-                  Solicite una cotización personalizada del videolaringoscopio CoreRay CR31 y descubra cómo podemos
-                  ayudarle a mejorar la seguridad en sus procedimientos de anestesiología.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={onOpenQuote}
-                    className="bg-white text-[#0293CA] px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                  >
-                    Solicitar cotización
-                  </button>
-                  <a
-                    href="https://wa.me/51962881108"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#0293CA] transition-colors text-center"
-                  >
-                    Contactar por WhatsApp
-                  </a>
+                <div className="mt-10">
+                    <a
+                        href="https://wa.me/51962881108"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full sm:w-auto bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition-colors"
+                    >
+                        <MessageSquare className="mr-3 h-6 w-6" />
+                        Contactar por WhatsApp
+                    </a>
+                </div>
+              </div>
+              <div>
+                <div className="bg-gray-50 rounded-2xl p-8">
+                  <h2 className="text-2xl font-bold text-[#183368] mb-6">
+                    Envíenos un Mensaje
+                  </h2>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label htmlFor="Nombre" className="block text-sm font-medium text-gray-700 mb-1">
+                        Nombre completo *
+                      </label>
+                      <input
+                        type="text"
+                        id="Nombre"
+                        name="Nombre"
+                        required
+                        value={formData.Nombre}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="Email" className="block text-sm font-medium text-gray-700 mb-1">
+                          Email *
+                        </label>
+                        <input
+                          type="email"
+                          id="Email"
+                          name="Email"
+                          required
+                          value={formData.Email}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="Teléfono" className="block text-sm font-medium text-gray-700 mb-1">
+                          Teléfono *
+                        </label>
+                        <input
+                          type="tel"
+                          id="Teléfono"
+                          name="Teléfono"
+                          required
+                          value={formData.Teléfono}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="Empresa" className="block text-sm font-medium text-gray-700 mb-1">
+                        Empresa / Institución
+                      </label>
+                      <input
+                        type="text"
+                        id="Empresa"
+                        name="Empresa"
+                        value={formData.Empresa}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="Asunto" className="block text-sm font-medium text-gray-700 mb-1">
+                        Asunto *
+                      </label>
+                      <select
+                        id="Asunto"
+                        name="Asunto"
+                        required
+                        value={formData.Asunto}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                      >
+                        <option value="">Seleccione un asunto</option>
+                        <option value="Cotización Videolaringoscopio">Cotización Videolaringoscopio</option>
+                        <option value="Información Técnica">Información Técnica</option>
+                        <option value="Soporte Técnico">Soporte Técnico</option>
+                        <option value="Consulta General">Consulta General</option>
+                        <option value="Otro">Otro</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label htmlFor="Mensaje" className="block text-sm font-medium text-gray-700 mb-1">
+                        Mensaje *
+                      </label>
+                      <textarea
+                        id="Mensaje"
+                        name="Mensaje"
+                        rows={5}
+                        required
+                        value={formData.Mensaje}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0293CA] focus:border-transparent"
+                      />
+                    </div>
+
+                    {submitStatus === 'success' && (
+                      <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                        Mensaje enviado exitosamente. Nos contactaremos pronto.
+                      </div>
+                    )}
+                    {submitStatus === 'error' && (
+                        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                        Error al enviar el mensaje. Por favor, intente de nuevo o contáctenos por WhatsApp.
+                        </div>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-[#0293CA] to-[#03e28f] text-white px-6 py-4 rounded-lg font-semibold hover:shadow-lg transition-shadow disabled:opacity-50 flex items-center justify-center"
+                    >
+                      {isSubmitting ? 'Enviando...' : <><Send className="h-5 w-5 mr-2" />Enviar Mensaje</>}
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
