@@ -1,27 +1,27 @@
-import { Menu, X, Instagram } from 'lucide-react'; // Importamos el ícono de Instagram
+import { Menu, X, Instagram } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
   currentPage: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (path: string) => void;
 }
 
 export default function Header({ currentPage, onNavigate }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Inicio', page: 'home' },
-    { name: 'Videolaringoscopio', page: 'videolaringoscopio' },
-    { name: 'Otros Productos', page: 'otros-productos' },
-    { name: 'Nosotros', page: 'nosotros' },
-    { name: 'Contacto', page: 'contacto' },
+    { name: 'Inicio', page: 'home', path: '/' },
+    { name: 'Videolaringoscopio', page: 'videolaringoscopio', path: '/videolaringoscopio' },
+    { name: 'Otros Productos', page: 'otros-productos', path: '/otros-productos' },
+    { name: 'Nosotros', page: 'nosotros', path: '/nosotros' },
+    { name: 'Contacto', page: 'contacto', path: '/contacto' },
   ];
 
   return (
     <header className="fixed w-full bg-white shadow-md z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div className="flex items-center cursor-pointer" onClick={() => onNavigate('home')}>
+          <a href="/" onClick={(e) => { e.preventDefault(); onNavigate('/'); }} className="flex items-center cursor-pointer">
             <img
               src="/assets/logo.png"
               alt="AM BASAN E.I.R.L. Logo"
@@ -31,13 +31,14 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
               <span className="text-xl font-bold text-[#183368]">AM BASAN</span>
               <p className="text-xs text-gray-600">Equipos Médicos</p>
             </div>
-          </div>
+          </a>
 
           <div className="hidden md:flex space-x-8">
             {navigation.map((item) => (
-              <button
+              <a
                 key={item.page}
-                onClick={() => onNavigate(item.page)}
+                href={item.path}
+                onClick={(e) => { e.preventDefault(); onNavigate(item.path); }}
                 className={`text-sm font-medium transition-colors ${
                   currentPage === item.page
                     ? 'text-[#0293CA] border-b-2 border-[#0293CA]'
@@ -45,11 +46,10 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                 } py-2`}
               >
                 {item.name}
-              </button>
+              </a>
             ))}
           </div>
 
-          {/* --- SECCIÓN MODIFICADA --- */}
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="https://www.instagram.com/ambasan.eirl"
@@ -80,14 +80,15 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
           </button>
         </div>
 
-        {/* --- MENÚ MÓVIL MODIFICADO --- */}
         {mobileMenuOpen && (
           <div className="md:hidden pb-4">
             {navigation.map((item) => (
-              <button
+              <a
                 key={item.page}
-                onClick={() => {
-                  onNavigate(item.page);
+                href={item.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate(item.path);
                   setMobileMenuOpen(false);
                 }}
                 className={`block w-full text-left px-4 py-2 text-sm font-medium ${
@@ -97,7 +98,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                 }`}
               >
                 {item.name}
-              </button>
+              </a>
             ))}
             <div className="mt-4 px-4 flex items-center justify-between">
               <a

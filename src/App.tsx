@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -10,14 +11,33 @@ import Contacto from './pages/Contacto';
 import Privacy from './pages/Privacy';
 import OtrosProductos from './pages/OtrosProductos';
 
-type Page = 'home' | 'videolaringoscopio' | 'nosotros' | 'contacto' | 'privacy' | 'otros-productos';
-
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as Page);
+  // Obtenemos el nombre de la página actual a partir de la ruta
+  const getCurrentPage = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'home';
+      case '/videolaringoscopio':
+        return 'videolaringoscopio';
+      case '/otros-productos':
+        return 'otros-productos';
+      case '/nosotros':
+        return 'nosotros';
+      case '/contacto':
+        return 'contacto';
+      case '/privacy':
+        return 'privacy';
+      default:
+        return '';
+    }
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -27,25 +47,6 @@ function App() {
 
   const handleCloseQuote = () => {
     setIsQuoteModalOpen(false);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Home onNavigate={handleNavigate} onOpenQuote={handleOpenQuote} />;
-      case 'videolaringoscopio':
-        return <Videolaringoscopio onOpenQuote={handleOpenQuote} />;
-      case 'nosotros':
-        return <Nosotros onOpenQuote={handleOpenQuote} />;
-      case 'contacto':
-        return <Contacto />;
-      case 'privacy':
-        return <Privacy />;
-      case 'otros-productos':
-        return <OtrosProductos onOpenQuote={handleOpenQuote} />;
-      default:
-        return <Home onNavigate={handleNavigate} onOpenQuote={handleOpenQuote} />;
-    }
   };
 
   return (
@@ -69,10 +70,17 @@ function App() {
         })}
       </script>
 
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
+      <Header currentPage={getCurrentPage()} onNavigate={handleNavigate} />
 
       <main className="flex-grow">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<Home onNavigate={handleNavigate} onOpenQuote={handleOpenQuote} />} />
+          <Route path="/videolaringoscopio" element={<Videolaringoscopio onOpenQuote={handleOpenQuote} />} />
+          <Route path="/otros-productos" element={<OtrosProductos onOpenQuote={handleOpenQuote} />} />
+          <Route path="/nosotros" element={<Nosotros onOpenQuote={handleOpenQuote} />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/privacy" element={<Privacy />} />
+        </Routes>
       </main>
 
       <Footer onNavigate={handleNavigate} />

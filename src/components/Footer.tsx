@@ -1,10 +1,19 @@
 import { Mail, Phone } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (page: string) => void;
+  onNavigate: (path: string) => void;
 }
 
 export default function Footer({ onNavigate }: FooterProps) {
+  const navigationLinks = [
+    { name: 'Inicio', path: '/' },
+    { name: 'Videolaringoscopio', path: '/videolaringoscopio' },
+    { name: 'Otros Productos', path: '/otros-productos' },
+    { name: 'Nosotros', path: '/nosotros' },
+    { name: 'Contacto', path: '/contacto' },
+    { name: 'Política de Privacidad', path: '/privacy' },
+  ];
+
   return (
     <footer className="bg-[#183368] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -20,42 +29,16 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h3 className="text-lg font-bold mb-4">Enlaces</h3>
             <div className="space-y-2">
-              <button
-                onClick={() => onNavigate('home')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Inicio
-              </button>
-              <button
-                onClick={() => onNavigate('videolaringoscopio')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Videolaringoscopio
-              </button>
-              <button
-                onClick={() => onNavigate('otros-productos')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Otros Productos
-              </button>
-              <button
-                onClick={() => onNavigate('nosotros')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Nosotros
-              </button>
-              <button
-                onClick={() => onNavigate('contacto')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Contacto
-              </button>
-              <button
-                onClick={() => onNavigate('privacy')}
-                className="block text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Política de Privacidad
-              </button>
+              {navigationLinks.map(link => (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  onClick={(e) => { e.preventDefault(); onNavigate(link.path); }}
+                  className="block text-sm text-gray-300 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
           </div>
 
